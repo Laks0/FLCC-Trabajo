@@ -103,4 +103,47 @@ Como $\r$ es Church-Rosser y $t \rs r_1, t \rs r_2$, sabemos que existe un $s$ t
 
 Como $r_1$ está en forma normal, no existe ningún $e$ tal que $r_1 \r e$, así que el único elemento tal que $r_1 \rs s$ es $r_1$. Por lo tanto $s = r_1$. Se puede hacer el mismo argumento con $r_2$ y llegar a que $r_2 = s = r_1$. Entonces $r_1 = r_2$.
 
+
+\subsection*{III.26 Probar el Teorema 8.22}
+
+\begin{myblock}{Teorema 8.22}
+	Para todo operador densidad $\rho$ se tiene $tr(\rho^2) \leq 1$.
+
+	Más aún, la igualdad se cumple si y solo si $\rho$ está en un estado puro.
+\end{myblock}
+
+Para la primera parte del teorema recordamos que para un conjunto de estados puros $\{(p_i, | \psi_i \rangle)\}$, el operador de densidad es $\rho = \sum_i p_i | \psi_i \rangle \langle \psi_i |$.
+
+\def\ij{| \psi_i \rangle \langle \psi_i | \psi_j \rangle \langle \psi_j |}
+
+\[
+	tr(\rho^2) = tr((\sum_i p_i | \psi_i \rangle \langle \psi_i |)^2) = tr(\sum_i \sum_j p_i p_j \ij)
+\]
+
+Por las propiedades de la traza vemos que esto es igual a:
+
+\[
+	\sum_i \sum_j tr(p_i p_j \ij) = \sum_i \sum_j p_i p_j tr(\ij)
+\]
+
+Ahora, por el Teorema 8.12 del apunte que dice que $tr(|\psi \rangle \langle \varphi | = \langle \varphi | \psi \rangle$, tomamos $\varphi$ como $\psi_j$ y $\psi$ como el resto, y tenemos que:
+
+\[
+	tr(\ij) = \langle \psi_j | \psi_i \rangle \langle \psi_i | \psi_j \rangle = | \langle \psi_j | \psi_i \rangle |^2
+\]
+
+Por Cauchy-Schwartz, sabemos que $|\langle \psi_j | \psi_i \rangle|^2 \leq \langle \psi_j | \psi_j \rangle \langle \psi_i | \psi_i \rangle$, y, como los vectores son unitarios, tenemos que $\langle \psi_k | \psi_k \rangle = 1$ para todo $k$. Entonces:
+
+\[
+	tr(\rho^2) = \sum_i \sum_j p_i p_j |\langle \psi_j | \psi_i \rangle|^2 \leq \sum_i \sum_j p_i p_j \leq 1
+\]
+
+La última inecuación vale porque los $p_k$ son probabilidades y por lo tanto son menores o iguales a 1.
+
+Cuando $\rho$ está en un estado puro es fácil ver que:
+
+\[
+	tr(\rho^2) = tr(|\psi \rangle \langle \psi | \psi \rangle \langle \psi |) = \langle \psi | \psi \rangle \langle \psi | \psi \rangle = 1 \cdot 1 = 1
+\]
+
 \end{document}
