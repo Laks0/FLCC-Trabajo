@@ -1,0 +1,36 @@
+\subsection*{II.10 verificar que \textbf{List} es un functor}
+
+\begin{myblock}{Ejercicio II.10}
+Sea $f:S \to S'$ una función entre conjuntos. Probar que el functor \textbf{List} cumple:
+
+\begin{enumerate}
+    \item $ \mathrm{List}(\mathrm{Id}_S) = \mathrm{Id}_{\mathrm{List}(S)} $
+    \item $ \mathrm{List}(g \circ f) = \mathrm{List}(g) \circ \mathrm{List}(f) $ para toda función $g:S' \to S''$.
+\end{enumerate}
+\end{myblock}
+
+
+\begin{enumerate}
+    \item \emph{Identidad.} Tomemos una lista cualquiera $L = [s_1, \dots, s_n] \in \mathrm{List}(S)$. Entonces se tiene:
+    \[
+        \mathrm{List}(\mathrm{Id}_S)(L) = [\mathrm{Id}_S(s_1) , \dots , \mathrm{Id}_S(s_n)] = [s_1, \dots, s_n] = \mathrm{Id}_{\mathrm{List}(S)}(L)
+    \]
+    y como esto vale para cualquier lista $L$ podemos decir que $\mathrm{List}(\mathrm{Id}_S) = \mathrm{Id}_{\mathrm{List}(S)}$.
+
+    \item \emph{Composición.} Sea $f:S \to S'$, $g:S' \to S''$ y $L=[s_1, \dots, s_n]$ una lista en $\mathrm{List}(S)$. Entonces:
+    \[
+        \mathrm{List}(g \circ f)(L) = [(g \circ f)(s_1), \dots , (g \circ f)(s_n)] = [g(f(s_1)), \dots, g(f(s_n))]
+    \]
+    Por otro lado, haciendo paso por paso:
+    \[
+        (\mathrm{List}(g) \circ \mathrm{List}(f))(L) = \mathrm{List}(g)([f(s_1), \dots , f(s_n)]) = [g(f(s_1)) , \dots , g(f(s_n))]
+    \]
+    Como las dos cosas coinciden para cualquier lista, se cumple que
+    \[
+        \mathrm{List}(g \circ f) = \mathrm{List}(g) \circ \mathrm{List}(f)
+    \]
+    lo cual demuestra la propiedad de composición.
+
+\end{enumerate}
+
+En conclusión, $\mathrm{List}$ cumple ambas condiciones y por lo tanto es un functor, como se pedía.
