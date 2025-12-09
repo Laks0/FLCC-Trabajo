@@ -20,8 +20,31 @@
 	title=#1]}%
 	{\endtcolorbox}
 
-\begin{document}
 \setlength\parindent{0pt}
+
+
+\setlength{\parskip}{0.1em}
+\newcommand{\tab}{~ \qquad}
+\usepackage{caratula} % Version modificada para usar las macros de algo1 de ~> https://github.com/bcardiff/dc-tex
+
+\begin{document}
+
+\titulo{Exámen final}
+\subtitulo{}
+\fecha{09 de Diciembre del 2025}
+\materia{Fundamentos de Lenguajes para Computación Cuántica}
+%\grupo{Grupo XX}
+\newcommand{\senial}{\textit{se\~nal}}
+
+
+\integrante{Bagnasco Muguillo, Lautaro}{1173/21 }{lbagnasco@dc.uba.ar}
+\integrante{Laks, Joaquín}{??}{??}
+\integrante{Vekselman, Natan}{338/21}{natanvek11@gmail.com}
+\integrante{Romani, Rafael}{775/21}{rafaromani243@gmail.com}
+
+\maketitle
+
+
 
 \section*{Parte I: Lógica, cálculo lambda, y el isomorfismo de Curry-Howard}
 \input{diamante-CR-unica-FN.tex}
@@ -32,6 +55,7 @@
 \input{bell_tres_qubits.tex}
 \input{operador-densidad.tex}
 
+\newpage
 \section*{Algoritmo}
 \input{codificacion-superdensa.tex}
 \end{document}
