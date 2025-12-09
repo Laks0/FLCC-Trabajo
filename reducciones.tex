@@ -1,0 +1,17 @@
+\subsection*{I.3 Reducir, mostrando cada paso, los siguientes términos:}
+
+\subsubsection*{1. $\star ; \langle \star, \star \rangle$}
+
+\[\star ; \langle \star, \star \rangle \rightarrow^{sec} \langle \star , \star \rangle
+\]
+
+\subsubsection*{2. $(\lambda x. \pi_1 x) \langle \star, \star \rangle$}
+
+\[
+		(\lambda x. \pi_1 x) \langle \star, \star \rangle \rightarrow^{\beta} \pi_1 \langle \star, \star \rangle \rightarrow^{\pi_1} \star
+\]
+
+\subsubsection*{3. match(inr$(\star), x.(\lambda y.y), y.(\lambda y.\star)$)}
+\[
+	\text{match}( \text{inr}(\star), x.(\lambda y.y), y. (\lambda y. \star)) \rightarrow^{\text{match}_r} (\text{inr}(\star)/y) (\lambda y. \star) = \lambda y. \star
+\]
