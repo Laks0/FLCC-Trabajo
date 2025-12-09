@@ -9,6 +9,7 @@
 \usepackage{forest}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage[braket]{qcircuit}
 \usepackage[skip=10pt plus1pt, indent=20pt]{parskip}
 
 \newenvironment{myblock}[1]{%
@@ -104,6 +105,30 @@ Como $\r$ es Church-Rosser y $t \rs r_1, t \rs r_2$, sabemos que existe un $s$ t
 
 Como $r_1$ está en forma normal, no existe ningún $e$ tal que $r_1 \r e$, así que el único elemento tal que $r_1 \rs s$ es $r_1$. Por lo tanto $s = r_1$. Se puede hacer el mismo argumento con $r_2$ y llegar a que $r_2 = s = r_1$. Entonces $r_1 = r_2$.
 
+
+
+\subsection*{III. 15 Dar un circuito que genere el estado $\frac{1}{\sqrt{2}}|000\rangle + \frac{1}{\sqrt{2}}|111\rangle$ a partir de la entrada $|000\rangle$}
+
+Funciona el siguiente circuito:
+
+\[
+	\Qcircuit @R=1em @C=1em{
+		\lstick{\ket{0}} & \gate{H} & \ctrl{1} & \ctrl{2} & \qw \\
+		\lstick{\ket{0}} & \qw      & \targ    & \qw      & \qw \\
+		\lstick{\ket{0}} & \qw      & \qw      & \targ    & \qw \\
+	}
+\]
+
+Si analizamos la traza vemos que, comenzando con la entrada \ket{000} llegamos al estado deseado.
+
+\def\hr{\frac{1}{\sqrt{2}}}
+
+\[
+	\ket{000} \xrightarrow{H\otimes I \otimes I} (\hr\ket{0}+\hr\ket{1}) \ket{00} = \hr (\ket{000} + \ket{100})
+\]
+\[
+	\xrightarrow{CNOT(1,2)} \hr (\ket{000}+\ket{110}) \xrightarrow{CNOT(1,3)} \hr (\ket{000}+\ket{111})
+\]
 
 \subsection*{III.26 Probar el Teorema 8.22}
 
