@@ -1,0 +1,21 @@
+\subsection*{Ejercicio II.5}
+
+Probar el teorema 4.12
+
+
+\begin{myblock}{Teorema 4.12}
+    En Set, los epimorfismos son exactamente las funciones sobreyectivas (las funciones $f : A \to B$ para las cuales para cada $b \in B$ existe un $a \in A$ tal que $f (a) = b$).
+\end{myblock}
+
+$\implies)$ Sea $A \overset{\text{f}} \longrightarrow B$ una función sobreyectiva. Supongamos que no es un epimorfismo, por lo tanto existen $B \overset{\text{g}} \longrightarrow C$ y $B \overset{\text{h}} \longrightarrow C$ tales que $g\circ f = h \circ f$ pero $g \neq h$. Sea $y \in B$ tal que $g(y) \neq h(y)$ el cual existe por ser $g$ y $h$ distintas. Como $f$ es sobreyectiva, existe $x \in A$ que cumple $f(x) = y$, luego $g(y) = g(f(y))$ y $h(y) = h(f(y))$ y por ende $g\circ f \neq h \circ f$, lo cual contradice las hipótesis de $g$ y $h$.
+
+$\impliedby)$ Sea $A \overset{\text{f}} \longrightarrow B$ un epimorfismo. Supongamos que no es sobreyectiva, luego existe $b \in B$ tal que para todo $a \in A$, $f(a) \neq b$. Sean $g$ y $h$ flechas de $B$ en $C$ tales que 
+\begin{align*}
+    &g(x) = x 
+    &h(x) = \begin{cases}
+        c & \text{si } x = b \\
+        x & \text{caso contrario}
+    \end{cases}  
+\end{align*}
+
+Luego, ver que $g(f(x)) = f(x)$ y $h(f(x)) = f(x)$ pues $f(x) \neq b$ para todo $x \in A$, por lo tanto $g\circ f = h \circ f$ y dado que $f$ es un epimorfismo se tiene que $g = h$ lo cual contradice las hipótesis.
