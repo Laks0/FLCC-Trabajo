@@ -1,0 +1,50 @@
+El algoritmo de codificación superdensa empieza en un estado $\beta_{00}$, donde Alice tiene el primer qubit y Bob el segundo. Luego de aplicar la primer compuerta, Alice envía su qubit a Bob. Alice quiere enviar los bits $b_1b_2$ clásicos a Bob, el circuito es de la forma:
+
+\[
+	\Qcircuit @R=1em @C=1em{
+	\lstick{Alice} & \qw & \gate{Z^{b_1}X^{b_2}} & \qw & \ctrl{1} & \gate{H} & \meter\\
+	\lstick{Bob}   & \qw & \qw                   & \qw & \targ    & \qw & \meter\\
+	}
+\]
+
+Para analizar el algoritmo primero vemos el efecto de aplicar $Z^{b_1}$ y $X^{b_2}$.
+
+$$Z^1 \ket{0} = \ket{0}$$
+$$Z^1 \ket{1} = -\ket{1}$$
+$$Z^0 \ket{0} = \ket{0}$$
+$$Z^0 \ket{1} = \ket{1}$$
+
+Entonces podemos pensar que $Z^{b_1} (\alpha\ket{0}+\beta\ket{1}) = \alpha\ket{0} + (-1)^{b_1}\beta\ket{1}$
+
+Un análisis similar se puede hacer con $X$.
+$$X^1 \ket{0} = \ket{1}$$
+$$X^1 \ket{1} = \ket{0}$$
+$$X^0 \ket{0} = \ket{0}$$
+$$X^0 \ket{1} = \ket{1}$$
+
+Entonces podemos escribir $X^{b_2} (\alpha\ket{0}+\beta\ket{1}) = (\alpha^{1-b_2}+\beta^{b_2})\ket{0}+(\beta^{1-b_2}+\alpha^{b_2})\ket{1}$
+
+Finalmente, llegamos a que:
+$$Z^{b_1} X^{b_2} (\alpha \ket{0} + \beta \ket{1}) = (\alpha^{1-b_2} + (-1)^{b_1b_2}\beta^{b_2})\ket{0} + ((-1)^{b_1 (1-b_2)}\beta^{1-b_2} + \alpha^{b_2})\ket{1}$$
+
+Esta fórmula la usamos en el primer paso de la traza del algoritmo.
+
+Con entrada $\beta_{00} = \hr(\ket{00}+\ket{11})$ el algoritmo primero aplica $Z^{b_1}X^{b_2}$ al primer qubit, resultando en:
+
+\[
+	\hr (\ket{00}+\ket{11}) \xrightarrow{Z^{b_1}X^{b_2}} \hr (\ket{00} + \ket{10} + (-1)^{b_1b_2}\ket{01} + (-1)^{b_1(1-b_2)}\ket{11})
+\]
+
+Luego de aplicar un CNOT, el estado queda:
+
+\[
+	\hr (\ket{00} + \ket{11} + (-1)^{b_1b_2}\ket{01} + (-1)^{b_1(1-b_2)}\ket{10}) 
+\]
+
+\[
+	= \hr(\ket{0}(\ket{0} + (-1)^{b_1b_2}\ket{1}) + \ket{1} (\ket{1} + (-1)^{b_1(1-b_2)}\ket{0}))
+\]
+
+Luego de aplicar $H$, queda:
+
+% Aplicar H solo a los |0> |1> que multiplican a la izquierda
