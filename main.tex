@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage{forest}
 \usepackage{amsmath}
+\usepackage{amsfonts}
 \usepackage[skip=10pt plus1pt, indent=20pt]{parskip}
 
 \newenvironment{myblock}[1]{%
@@ -112,38 +113,39 @@ Como $r_1$ está en forma normal, no existe ningún $e$ tal que $r_1 \r e$, así
 	Más aún, la igualdad se cumple si y solo si $\rho$ está en un estado puro.
 \end{myblock}
 
-Para la primera parte del teorema recordamos que para un conjunto de estados puros $\{(p_i, | \psi_i \rangle)\}$, el operador de densidad es $\rho = \sum_i p_i | \psi_i \rangle \langle \psi_i |$.
+\def\ij{| i \rangle \langle i | j \rangle \langle j |}
 
-\def\ij{| \psi_i \rangle \langle \psi_i | \psi_j \rangle \langle \psi_j |}
+Recordamos que para un conjunto de estados puros $\{(p_i, | \psi_i \rangle)\}$, el operador de densidad es $\rho = \sum_i p_i | \psi_i \rangle \langle \psi_i |$.
+Sabemos por el Teorema 8.25 del apunte que lo podemos escribir como $\rho = \sum_j \lambda_j | j \rangle \langle j |$ donde los $|j\rangle$ son ortonormales y $\lambda_j \in \mathbb{R}_0^+$. Vemos entonces que:
 
 \[
-	tr(\rho^2) = tr((\sum_i p_i | \psi_i \rangle \langle \psi_i |)^2) = tr(\sum_i \sum_j p_i p_j \ij)
+	tr(\rho^2) = tr((\sum_i \lambda_i |i\rangle \langle i|)^2) = tr(\sum_i \sum_j \lambda_i \lambda_j \ij) = \sum_i \sum_j \lambda_i \lambda_j tr(\ij)
 \]
 
-Por las propiedades de la traza vemos que esto es igual a:
+Como los vectores son ortonormales, tenemos que $\langle i | j \rangle = \delta_{ij}$, entonces:
 
 \[
-	\sum_i \sum_j tr(p_i p_j \ij) = \sum_i \sum_j p_i p_j tr(\ij)
+	\sum_i \sum_j \lambda_i \lambda_j tr(\ij) = \sum_i \sum_j \delta_{ij} \lambda_i \lambda_j tr(|i\rangle \langle j|) = \sum_i \lambda_i^2 tr(|i\rangle\langle i|)
 \]
 
-Ahora, por el Teorema 8.12 del apunte que dice que $tr(|\psi \rangle \langle \varphi | = \langle \varphi | \psi \rangle$, tomamos $\varphi$ como $\psi_j$ y $\psi$ como el resto, y tenemos que:
+Ahora, por el Teorema 8.12 del apunte sabemos que $tr(|i\rangle \langle i |) = \langle i | i \rangle = 1$, entonces $tr(\rho^2) = \sum_i \lambda_i^2$.
+
+También sabemos que:
 
 \[
-	tr(\ij) = \langle \psi_j | \psi_i \rangle \langle \psi_i | \psi_j \rangle = | \langle \psi_j | \psi_i \rangle |^2
+	tr(\rho) = tr(\sum_i \lambda_i | i \rangle \langle i |) = \sum_i \lambda_i = 1
 \]
 
-Por Cauchy-Schwartz, sabemos que $|\langle \psi_j | \psi_i \rangle|^2 \leq \langle \psi_j | \psi_j \rangle \langle \psi_i | \psi_i \rangle$, y, como los vectores son unitarios, tenemos que $\langle \psi_k | \psi_k \rangle = 1$ para todo $k$. Entonces:
+Como los $\lambda_i$ son positivos, esto nos dice que $0 \leq \lambda_i \leq 1$ para todo $i$, por lo tanto $\lambda_i^2 \leq \lambda_i$. Entonces:
+
+$$tr(\rho^2) = \sum_i \lambda_i^2 \leq \sum_i \lambda_i = tr(\rho) = 1$$
+
+En el caso en el que $\rho$ está en estado puro, se puede escribir como $|\psi\rangle \langle\psi|$, y es fácil ver que $tr(\rho^2)=tr(|\psi\rangle\langle\psi|\psi\rangle\langle\psi|)=tr(|\psi\rangle\langle\psi|)=\langle\psi|\psi\rangle=1$
+
+Cuando $\rho$ es un estado mixto, no se puede escribir de esa forma, así que sabemos que por lo menos dos $\lambda_i$ son no nulos. Como $\sum_i \lambda_i = 1$ y $0 \leq \lambda_i \leq 1$, esto nos dice que $\lambda_i < 1$ para todo $i$. Por lo tanto $\lambda_i^2 < \lambda_i$. Entonces:
 
 \[
-	tr(\rho^2) = \sum_i \sum_j p_i p_j |\langle \psi_j | \psi_i \rangle|^2 \leq \sum_i \sum_j p_i p_j \leq 1
-\]
-
-La última inecuación vale porque los $p_k$ son probabilidades y por lo tanto son menores o iguales a 1.
-
-Cuando $\rho$ está en un estado puro es fácil ver que:
-
-\[
-	tr(\rho^2) = tr(|\psi \rangle \langle \psi | \psi \rangle \langle \psi |) = \langle \psi | \psi \rangle \langle \psi | \psi \rangle = 1 \cdot 1 = 1
+	tr(\rho^2) = \sum_i \lambda_i^2 < \sum_i \lambda_i = 1
 \]
 
 \end{document}
