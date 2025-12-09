@@ -1,7 +1,7 @@
-\subsection*{I.8 Demostrar el lema:}
-
 \def\r{\longrightarrow_R}
 \def\rs{\longrightarrow^{\star}_R}
+
+\subsection*{Ejercicio 8: demostrar el siguiente lema} 
 
 \begin{myblock}{Lema 2.7}
 	\begin{enumerate}
@@ -10,19 +10,21 @@
 	\end{enumerate}
 \end{myblock}
 
-\subsubsection*{1}
+\subsubsection*{Lema 2.7.1}
 
-Sea $\r$ que satisface la propiedad del diamante, es decir que, si $t \r r_1$ y $r \r r_2$ entonces existe un $s$ tal que $r_1 \r s$ y $r_2 \r s$. Queremos ver que si $t \rs r_1$ y $t \rs r_2$ entonces existe un $s$ tal que $r_1 \rs s$ y $r_2 \rs s$.
+Sea $\r$ que satisface la propiedad del diamante, es decir que, si $t \r r_1$ y $t \r r_2$ entonces existe un $s$ tal que $r_1 \r s$ y $r_2 \r s$. Queremos ver que si $t \rs r_1$ y $t \rs r_2$ entonces existe un $s$ tal que $r_1 \rs s$ y $r_2 \rs s$.
 
-Sean $t, r_1, r_2$ tal que $t \rs r_1, t \rs r_2$. Si $t \rs r_1$ existe una secuencia $\alpha_1, \alpha_2, \ldots, \alpha_{k-1}$ tal que $t \r \alpha_1 \r \alpha_2 \r \ldots \r \alpha_{k-1} \r r_1$, lo mismo con $r_2$ para una secuencia $\beta_1, \ldots, \beta_{l-1}$. Notamos esto $t \r^k r_1, t \r^l r_2$. Vamos por inducción en la longitud de las secuencias.
+Sean $t, r_1, r_2$ tales que $t \rs r_1, t \rs r_2$. Si $t \rs r_1$ existe una secuencia $\alpha_1, \alpha_2, \ldots, \alpha_{k-1}$ tal que $t \r \alpha_1 \r \alpha_2 \r \ldots \r \alpha_{k-1} \r r_1$, simétricamente para $r_2$ existe una secuencia $\beta_1, \ldots, \beta_{l-1}$. Notamos esto $t \r^k r_1, t \r^l r_2$. Veamos por inducción en $k$ y $l$ que es Church-Rosser.
 
-\textbf{Hipótesis inductiva:} Si $t \r^k r_1, t \r^l r_2$ entonces existe un $s$ tal que $r_1 \r^l s, r_2 \r^k s$.
+Para $l,r \leq 1$ se sostiene que es CR pues es la propiedad del diamante.
 
-Para $l,r \leq 1$ esto es claramente válido porque es la propiedad del diamante.
+Veamos inductivamente que se sostiene para $l+1, r+1 \leq n+1$. \textbf{Hipótesis inductiva:} Si $t \r^k r_1, t \r^l r_2$ entonces existe un $s$ tal que $r_1 \r^l s, r_2 \r^k s$.
 
-El paso inductivo es para $l+1, r+1 \leq n+1$.
-
-Sean $t,r_1,r_2$ tal que $t \r^{k+1} r_1, t \r^{l+1} r_2$. Sabemos que $t \r^k \alpha \r r_1$ y $t \r^l \beta \r r_2$. Por hipótesis inductiva tenemos que existe un $\gamma$ tal que $\alpha \r^l \gamma$ y $\beta \r^k \gamma$. Ahora también por HI sabemos que existen $\delta_1, \delta_2$ tal que $r_1 \r^l \delta_1, r_2 \r^k \delta_2, \gamma \r \delta_1, \gamma \r \delta_2$. Finalmente, por propiedad de diamante con $\gamma, \delta_1, \delta_2$ vemos que existe $s$ tal que $\delta_1 \r s, \delta_2 \r s$.
+Sean $t,r_1,r_2$ tales que $t \r^{k+1} r_1, t \r^{l+1} r_2$. 
+Por definición de $\r^{\_+1}$ existen $\alpha$ y $\beta$ tales que $t \r^k \alpha \r r_1$ y $t \r^l \beta \r r_2$. 
+Luego, por hipótesis inductiva tenemos que existe un $\gamma$ tal que $\alpha \r^l \gamma$ y $\beta \r^k \gamma$. 
+Ahora también por HI sabemos que existen $\delta_1, \delta_2$ tal que $r_1 \r^l \delta_1, r_2 \r^k \delta_2, \gamma \r \delta_1, \gamma \r \delta_2$. 
+Finalmente, por propiedad de diamante con $\gamma, \delta_1, \delta_2$ vemos que existe $s$ tal que $\delta_1 \r s, \delta_2 \r s$.
 
 Uniendo todo esto tenemos que $r_1 \r^l \delta_1 \r s$ y $r_2 \r^k \delta_2 \r s$ por lo tanto $r_1 \r^{l+1} s$ y $r_2 \r^{k+1} s$ que era lo que buscábamos. Abajo hay un esquema de la demostración.
 
@@ -53,10 +55,10 @@ Uniendo todo esto tenemos que $r_1 \r^l \delta_1 \r s$ y $r_2 \r^k \delta_2 \r s
 	\end{forest}
 \end{center}
 
-\subsubsection*{2}
+\subsubsection*{Lema 2.7.2}
 
 Sea $\r$ Church-Rosser, $r_1, r_2$ en forma normal, y $t$ tal que $t \rs r_1, t \rs r_2$ queremos probar que $r_1 = r_2$.
 
 Como $\r$ es Church-Rosser y $t \rs r_1, t \rs r_2$, sabemos que existe un $s$ tal que $r_1 \rs s$ y $r_2 \rs s$.
 
-Como $r_1$ está en forma normal, no existe ningún $e$ tal que $r_1 \r e$, así que el único elemento tal que $r_1 \rs s$ es $r_1$. Por lo tanto $s = r_1$. Se puede hacer el mismo argumento con $r_2$ y llegar a que $r_2 = s = r_1$. Entonces $r_1 = r_2$.
+Dado que $r_1$ está en forma normal, no existe ningún $e$ tal que $r_1 \r e$, por lo que el único elemento tal que $r_1 \rs s$ es $r_1$. Por lo tanto $s = r_1$. Análogamente ocurre con $r_2$, por lo tanto $r_2 = s$ y por ende $r_1 = r_2$.
