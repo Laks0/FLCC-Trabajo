@@ -20,18 +20,42 @@
 	title=#1]}%
 	{\endtcolorbox}
 
+\setlength\parindent{0pt}
+
+
+\setlength{\parskip}{0.1em}
+\newcommand{\tab}{~ \qquad}
+\usepackage{caratula/caratula} % Version modificada para usar las macros de algo1 de ~> https://github.com/bcardiff/dc-tex
+
 \begin{document}
 
-\section{Ejercicios}
-\input{reducciones.tex}
+\titulo{Exámen final}
+\subtitulo{}
+\fecha{09 de Diciembre del 2025}
+\materia{Fundamentos de Lenguajes para Computación Cuántica}
+%\grupo{Grupo XX}
+\newcommand{\senial}{\textit{se\~nal}}
+
+
+\integrante{Bagnasco Muguillo, Lautaro}{1173/21 }{lbagnasco@dc.uba.ar}
+\integrante{Laks, Joaquín}{??}{??}
+\integrante{Vekselman, Natan}{338/21}{natanvek11@gmail.com}
+\integrante{Romani, Rafael}{775/21}{rafaromani243@gmail.com}
+
+\maketitle
+
+
+
+\section*{Parte I: Lógica, cálculo lambda, y el isomorfismo de Curry-Howard}
 \input{diamante-CR-unica-FN.tex}
+\section*{Parte II: Semántica denotacional y teoría de categorías}
 \input{epi-sobre.tex}
 \input{p2ej10-Lists.tex}
+\section*{Parte III: Computación cuántica}
 \input{bell_tres_qubits.tex}
 \input{operador-densidad.tex}
 
-
-\section{Algoritmo}
+\newpage
+\section*{Algoritmo}
 \input{codificacion-superdensa.tex}
-
 \end{document}
