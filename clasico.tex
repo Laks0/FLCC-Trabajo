@@ -1,0 +1,8 @@
+\subsection*{Lambda cálculo cuántico a control clásico}
+
+El término que implementa el algoritmo en el lambda cuántico a control clásico es el siguiente:
+\begin{align*}
+    \lambda b1 \lambda b2. &\\
+        & \textbf{let } \langle a, b \rangle = \mathrm{\text{CNOT }} \langle Z^{b_1} X^{b_2} (\mathrm{\text{new }} 0), \mathrm{\text{new }} 0 \rangle \\
+        & \textbf{in } \langle \mathrm{\text{meas }} H(a), \mathrm{\text{meas }} b \rangle
+\end{align*}
