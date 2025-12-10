@@ -1,0 +1,84 @@
+
+\textbf{Caso \(b_1=0,b_2=0\).}
+\[
+\beta_{00}=\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(X^{0}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(Z^{0}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{\mathrm{CNOT}}
+\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{10})
+\]
+\[
+\xrightarrow{(H\otimes I)}
+\ket{00}
+\]
+
+\textbf{Caso \(b_1=0,b_2=1\).}
+\[
+\beta_{00}=\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(X^{1}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{10}+\ket{01})
+\]
+\[
+\xrightarrow{(Z^{0}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{10}+\ket{01})
+\]
+\[
+\xrightarrow{\mathrm{CNOT}}
+\tfrac{1}{\sqrt{2}}(\ket{11}+\ket{01})
+\]
+\[
+\xrightarrow{(H\otimes I)}
+\ket{01}
+\]
+
+\textbf{Caso \(b_1=1,b_2=0\).}
+\[
+\beta_{00}=\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(X^{0}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(Z^{1}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{00}-\ket{11})
+\]
+\[
+\xrightarrow{\mathrm{CNOT}}
+\tfrac{1}{\sqrt{2}}(\ket{00}-\ket{10})
+\]
+\[
+\xrightarrow{(H\otimes I)}
+\ket{10}
+\]
+
+\textbf{Caso \(b_1=1,b_2=1\).}
+\[
+\beta_{00}=\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})
+\]
+\[
+\xrightarrow{(X^{1}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{10}+\ket{01})
+\]
+\[
+\xrightarrow{(Z^{1}\otimes I)}
+\tfrac{1}{\sqrt{2}}(\ket{10}-\ket{01})
+\]
+\[
+\xrightarrow{\mathrm{CNOT}}
+\tfrac{1}{\sqrt{2}}(\ket{11}-\ket{01})
+\]
+\[
+\xrightarrow{(H\otimes I)}
+\ket{11}
+\]
