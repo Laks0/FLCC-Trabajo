@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{braket}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\section*{1. Lambda Cálculo Cuántico a Control Clásico (Selinger \& Valiron)}
+Basado en el enfoque "Quantum Data, Classical Control". Aquí no existen superposiciones de términos, solo de datos (registros cuánticos). El control de flujo es clásico.
+
+\subsection*{Término y Tipo}
+El algoritmo se define como una función que toma dos bits clásicos y un par de qubits entrelazados (tipo \texttt{qbit} $\times$ \texttt{qbit}), y retorna dos bits clásicos tras la medición.
+
+\textbf{Tipo:}
+\[
+\texttt{SDC} : \texttt{bit} \to \texttt{bit} \to (\texttt{qbit} \times \texttt{qbit}) \to (\texttt{bit} \times \texttt{bit})
+\]
+
+\textbf{Término:}
+\[
+\begin{aligned}
+\texttt{SDC} = \lambda b_1.\lambda b_2.\lambda p. &\ \mathbf{let}\ (q_A, q_B) = p\ \mathbf{in} \\
+&\ \mathbf{let}\ q_A' = (\mathbf{if}\ b_2\ \mathbf{then}\ X\ \mathbf{else}\ I)\ q_A\ \mathbf{in} \\
+&\ \mathbf{let}\ q_A'' = (\mathbf{if}\ b_1\ \mathbf{then}\ Z\ \mathbf{else}\ I)\ q_A'\ \mathbf{in} \\
+&\ \mathbf{let}\ (z_1, z_2) = \text{CNOT}\ (q_A'', q_B)\ \mathbf{in} \\
+&\ \mathbf{let}\ z_1' = H\ z_1\ \mathbf{in} \\
+&\ (\mathbf{meas}\ z_1', \mathbf{meas}\ z_2)
+\end{aligned}
+\]
+
+\subsection*{Traza de Reducción (Caso \(b_1=0, b_2=1\))}
+Suponemos el estado inicial \(\ket{\beta_{00}} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})\).
+
+\[
+\begin{aligned}
+&\ \texttt{SDC}\ \mathbf{0}\ \mathbf{1}\ (q_A, q_B) \\
+\xrightarrow{\beta} &\ \mathbf{let}\ q_A' = X\ q_A\ \mathbf{in}\ \dots \quad (\text{Estado: } (X \otimes I)\ket{\beta_{00}} = \frac{1}{\sqrt{2}}(\ket{10} + \ket{01})) \\
+\xrightarrow{\beta} &\ \mathbf{let}\ q_A'' = I\ q_A'\ \mathbf{in}\ \dots \quad (\text{Estado: } (I \otimes X)\ket{\beta_{00}} \text{ -- sin cambios de fase}) \\
+\xrightarrow{\text{CNOT}} &\ \text{CNOT aplicado al par } \frac{1}{\sqrt{2}}(\ket{10} + \ket{01}) \\
+&\ (\text{Estado resultante: } \frac{1}{\sqrt{2}}(\ket{11} + \ket{01}) = \frac{1}{\sqrt{2}}(\ket{1} + \ket{0}) \otimes \ket{1} = \ket{+}\ket{1}) \\
+\xrightarrow{H} &\ H \text{ aplicado al primer qubit } (\ket{+} \to \ket{0}) \\
+&\ (\text{Estado resultante: } \ket{0}\ket{1}) \\
+\xrightarrow{\mathbf{meas}} &\ (\mathbf{meas}\ \ket{0}, \mathbf{meas}\ \ket{1}) \implies (0, 1)
+\end{aligned}
+\]
+
+\hrulefill
+
+\section*{2. Lambda-S (Díaz-Caro \& Malherbe)}
+Basado en "Quantum Control". El cálculo distingue tipos base \(\mathbb{B}\) (duplicables) de superposiciones \(S(\Psi)\) (no duplicables). Las funciones \(\lambda x:\mathbb{B}\) distribuyen linealmente (call-by-base).
+
+\subsection*{Término y Tipo}
+Asumimos las definiciones de las compuertas \(X, Z, H\) como términos del cálculo (ej. \(H\) definida en ).
+
+\textbf{Tipo:}
+\[
+\texttt{SDC} : \mathbb{B} \Rightarrow \mathbb{B} \Rightarrow S(\mathbb{B} \times \mathbb{B}) \Rightarrow (\mathbb{B} \times \mathbb{B})
+\]
+\textit{Nota: La medición está implícita en la reducción a base o mediante el operador de proyección si se requiere explícitamente, aquí mostramos la reducción al estado base final.}
+
+\textbf{Término:}
+\[
+\texttt{SDC} = \lambda b_1:\mathbb{B}.\ \lambda b_2:\mathbb{B}.\ \lambda \psi:S(\mathbb{B}\times\mathbb{B}).\ (H \otimes I)\ (\text{CNOT}\ ((Z^{b_1}\circ X^{b_2}) \otimes I)\ \psi)
+\]
+Donde \(X^b\) es azúcar sintáctica para \((b\ ?\ X \cdot I)\) y \(\otimes\) representa la operación sobre la estructura de pares del cálculo.
+
+\subsection*{Traza de Reducción (Caso \(b_1=0, b_2=1\))}
+Estado inicial \(\psi = \beta_{00} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})\). Las reducciones usan las reglas \(\beta_b\) (call-by-base) y la linealidad algebraica.
+
+\[
+\begin{aligned}
+&\ \texttt{SDC}\ \ket{0}\ \ket{1}\ \beta_{00} \\
+\xrightarrow{\beta_b \times 2} &\ (H \otimes I)\ (\text{CNOT}\ ((Z^{\ket{0}}\circ X^{\ket{1}}) \otimes I)\ \beta_{00}) \\
+\xrightarrow{\text{sugar}} &\ (H \otimes I)\ (\text{CNOT}\ ((I \circ X) \otimes I)\ \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})) \\
+\xrightarrow{lin} &\ (H \otimes I)\ (\text{CNOT}\ \frac{1}{\sqrt{2}}((X\ket{0})\otimes\ket{0} + (X\ket{1})\otimes\ket{1})) \\
+\xrightarrow{eval\ X} &\ (H \otimes I)\ (\text{CNOT}\ \frac{1}{\sqrt{2}}(\ket{10} + \ket{01})) \\
+\xrightarrow{CNOT} &\ (H \otimes I)\ \frac{1}{\sqrt{2}}(\text{CNOT}\ket{10} + \text{CNOT}\ket{01}) \\
+= &\ (H \otimes I)\ \frac{1}{\sqrt{2}}(\ket{11} + \ket{01}) \quad (\text{por def. CNOT: } \ket{10}\to\ket{11}, \ket{01}\to\ket{01}) \\
+\xrightarrow{factor} &\ (H \otimes I)\ (\ket{+} \times \ket{1}) \quad (\text{Factorización explícita permitida en la semántica}) \\
+\xrightarrow{H \otimes I} &\ (H\ket{+}) \times (I\ket{1}) \\
+\xrightarrow{eval\ H} &\ \ket{0} \times \ket{1} \equiv \ket{01}
+\end{aligned}
+\]
+
+\hrulefill
+
+\section*{3. \(L^{\mathbb{C}}\) / Vectorial (Arrighi, Díaz-Caro, Dowek)}
+Basado en Lógica Lineal y el "Linear-Algebraic Lambda Calculus". Aquí los escalares \(\alpha \in \mathbb{C}\) son ciudadanos de primera clase y parte del sistema de tipos (Vectorial).
+
+\subsection*{Término y Tipo}
+Usamos la notación del sistema \textit{Vectorial} . Los tipos pueden llevar escalares \(\alpha.A\).
+
+\textbf{Tipo:}
+\[
+\texttt{SDC} : \forall \mathcal{X}.\ \mathbb{B} \to \mathbb{B} \to S(\mathbb{B} \times \mathbb{B}) \to S(\mathbb{B} \times \mathbb{B})
+\]
+\textit{Nota: \(S\) aquí denota el tipo de vectores normalizados o el span generador.}
+
+\textbf{Término:}
+\[
+\texttt{SDC} = \lambda b_1.\ \lambda b_2.\ \lambda \psi.\ (H \otimes I)\ \text{CNOT}\ (Z\ (X\ \psi\ b_2)\ b_1)
+\]
+Asumiendo que las compuertas \(X\) y \(Z\) toman el bit de control como argumento para aplicar la identidad o la compuerta (codificación de control).
+
+\subsection*{Traza de Reducción (Caso \(b_1=0, b_2=1\))}
+En \(L^{\mathbb{C}}\), la reducción es puramente algebraica (reescritura).
+Estado: \(\psi = \frac{1}{\sqrt{2}}.\ket{00} + \frac{1}{\sqrt{2}}.\ket{11}\).
+Inputs: \(b_1=\ket{0}, b_2=\ket{1}\).
+
+\[
+\begin{aligned}
+&\ \texttt{SDC}\ \ket{0}\ \ket{1}\ (\frac{1}{\sqrt{2}}.\ket{00} + \frac{1}{\sqrt{2}}.\ket{11}) \\
+\xrightarrow{\beta} &\ (H \otimes I)\ \text{CNOT}\ (Z\ (X\ (\frac{1}{\sqrt{2}}.\ket{00} + \frac{1}{\sqrt{2}}.\ket{11})\ \ket{1})\ \ket{0}) \\
+\xrightarrow{dist} &\ (H \otimes I)\ \text{CNOT}\ (Z\ (\frac{1}{\sqrt{2}}.X\ket{00}\ket{1} + \frac{1}{\sqrt{2}}.X\ket{11}\ket{1})\ \ket{0}) \\
+\xrightarrow{eval\ X} &\ (H \otimes I)\ \text{CNOT}\ (Z\ (\frac{1}{\sqrt{2}}.\ket{10} + \frac{1}{\sqrt{2}}.\ket{01})\ \ket{0}) \\
+\xrightarrow{eval\ Z} &\ (H \otimes I)\ \text{CNOT}\ (\frac{1}{\sqrt{2}}.\ket{10} + \frac{1}{\sqrt{2}}.\ket{01}) \quad (\text{Control } \ket{0} \implies I) \\
+\xrightarrow{lin\ CNOT} &\ (H \otimes I)\ (\frac{1}{\sqrt{2}}.\text{CNOT}\ket{10} + \frac{1}{\sqrt{2}}.\text{CNOT}\ket{01}) \\
+= &\ (H \otimes I)\ (\frac{1}{\sqrt{2}}.\ket{11} + \frac{1}{\sqrt{2}}.\ket{01}) \\
+\xrightarrow{factor} &\ (H \otimes I)\ (\ket{+} \otimes \ket{1}) \quad (\text{Propiedad: } \alpha.u + \alpha.v \to \alpha(u+v)) \\
+\xrightarrow{H} &\ \ket{0} \otimes \ket{1} = \ket{01}
+\end{aligned}
+\]
+
+\end{document}
