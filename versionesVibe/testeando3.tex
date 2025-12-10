@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd} % Para brackets de semántica si fuera necesario
+\usepackage{braket}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+\section*{1. Quantum Lambda Calculus (QLC - Selinger \& Valiron)}
+\textbf{Terminología:} Control clásico, datos cuánticos (Heap).
+\textbf{Caso:} $b_1=0, b_2=1$. Estado inicial heap: $(x,y) \mapsto \ket{\beta_{00}}$.
+
+
+
+\[
+\begin{aligned}
+& \texttt{SDC}\ 0\ 1\ (x, y) \\
+\xrightarrow{\beta} \ & \mathbf{let}\ x' = (\mathbf{if}\ 1\ \mathbf{then}\ X(x)\ \mathbf{else}\ x)\ \mathbf{in} \dots \\
+\xrightarrow{\text{if}} \ & \mathbf{let}\ x' = X(x)\ \mathbf{in} \dots \\
+& \text{Heap: } (x,y) \mapsto \tfrac{1}{\sqrt{2}}(\ket{10}+\ket{01}) \text{ [cite: 630, 658]} \\
+\xrightarrow{\beta} \ & \mathbf{let}\ x'' = (\mathbf{if}\ 0\ \mathbf{then}\ Z(x')\ \mathbf{else}\ x')\ \mathbf{in} \dots \\
+\xrightarrow{\text{if}} \ & \mathbf{let}\ x'' = x'\ \mathbf{in} \dots \\
+\xrightarrow{\text{CNOT}} \ & \mathbf{let}\ (x''', y') = \text{CNOT}(x'', y) \\
+& \text{Heap: } (x,y) \mapsto \tfrac{1}{\sqrt{2}}(\ket{11}+\ket{01}) \text{ [cite: 652]} \\
+\xrightarrow{H} \ & \mathbf{let}\ x'''' = H(x''') \\
+& \text{Heap: } (x,y) \mapsto \ket{0}\otimes\ket{1} \text{ [cite: 633]} \\
+\xrightarrow{\text{meas}} \ & (\text{meas}(x''''), \text{meas}(y')) \Longrightarrow (0, 1) \text{ [cite: 647]}
+\end{aligned}
+\]
+
+\section*{2. Lambda-S (Díaz-Caro \& Malherbe)}
+\textbf{Terminología:} Tipos $\mathbb{B}$ y $S(A)$, condicional $?_{r \cdot s}$[cite: 78, 95].
+\textbf{Caso:} $b_1=\ket{0}, b_2=\ket{1}$. Estado inicial: $\psi = \beta_{00} = \tfrac{1}{\sqrt{2}}(\ket{00} + \ket{11})$[cite: 39, 97].
+
+\[
+\begin{aligned}
+& \texttt{SDC}\ \ket{0}\ \ket{1}\ \psi \\
+\xrightarrow{\beta_b} \ & (H \otimes I)\ \text{CNOT}\ (Z^{\ket{0}}(X^{\ket{1}}(\tfrac{1}{\sqrt{2}}(\ket{00}+\ket{11})))) \text{ [cite: 135]} \\
+\xrightarrow{lin} \ & \dots \tfrac{1}{\sqrt{2}}( (X\ket{0})\times\ket{0} + (X\ket{1})\times\ket{1} ) \text{ [cite: 137, 139]} \\
+\xrightarrow{\beta_b} \ & \tfrac{1}{\sqrt{2}}( (\ket{0}?_{\ket{0}\cdot\ket{1}})\times\ket{0} + (\ket{1}?_{\ket{0}\cdot\ket{1}})\times\ket{1} ) \text{ [cite: 150, 151]} \\
+\xrightarrow{\text{if}} \ & \tfrac{1}{\sqrt{2}}( \ket{1}\times\ket{0} + \ket{0}\times\ket{1} ) = \tfrac{1}{\sqrt{2}}(\ket{10}+\ket{01}) \\
+\xrightarrow{Z} \ & \dots \text{ (Identidad por } b_1=\ket{0}) \\
+\xrightarrow{\text{CNOT}} \ & \tfrac{1}{\sqrt{2}}( \text{CNOT}\ket{10} + \text{CNOT}\ket{01} ) \text{ [cite: 230]} \\
+\xrightarrow{rew} \ & \tfrac{1}{\sqrt{2}}( \ket{11} + \ket{01} ) \\
+\xrightarrow{fact} \ & (\tfrac{1}{\sqrt{2}}(\ket{1}+\ket{0})) \times \ket{1} = \ket{+}\times\ket{1} \text{ [cite: 170, 179]} \\
+\xrightarrow{H \otimes I} \ & \ket{0}\times\ket{1} = \ket{01} \text{ [cite: 276]}
+\end{aligned}
+\]
+
+\section*{3. $L^{\mathbb{C}}$ (Vectorial / Lineal)}
+\textbf{Terminología:} Linealidad algebraica, Application Group[cite: 671, 678].
+\textbf{Caso:} $b_1=\ket{0}, b_2=\ket{1}$. Estado: $\psi = \tfrac{1}{\sqrt{2}}.\ket{00} + \tfrac{1}{\sqrt{2}}.\ket{11}$[cite: 666, 670].
+
+\[
+\begin{aligned}
+& \texttt{SDC}\ \ket{0}\ \ket{1}\ (\tfrac{1}{\sqrt{2}}.\ket{00} + \tfrac{1}{\sqrt{2}}.\ket{11}) \\
+\xrightarrow{App} \ & X^{\ket{1}} (\tfrac{1}{\sqrt{2}}.\ket{00}) + X^{\ket{1}} (\tfrac{1}{\sqrt{2}}.\ket{11}) \text{ [cite: 679]} \\
+\xrightarrow{Scalar} \ & \tfrac{1}{\sqrt{2}}.(X^{\ket{1}}\ket{00}) + \tfrac{1}{\sqrt{2}}.(X^{\ket{1}}\ket{11}) \text{ [cite: 684]} \\
+\xrightarrow{\beta} \ & \tfrac{1}{\sqrt{2}}.\ket{10} + \tfrac{1}{\sqrt{2}}.\ket{01} \\
+\xrightarrow{\text{CNOT}} \ & \tfrac{1}{\sqrt{2}}.\text{CNOT}\ket{10} + \tfrac{1}{\sqrt{2}}.\text{CNOT}\ket{01} \text{ [cite: 679]} \\
+= \ & \tfrac{1}{\sqrt{2}}.\ket{11} + \tfrac{1}{\sqrt{2}}.\ket{01} \\
+\xrightarrow{Fact} \ & \tfrac{1}{\sqrt{2}}.(\ket{11} + \ket{01}) \text{ [cite: 677, 681]} \\
+\xrightarrow{H} \ & \dots \ket{0} \otimes \ket{1} = \ket{01} \text{ [cite: 693]}
+\end{aligned}
+\]
+
+
+\end{document}
