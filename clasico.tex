@@ -16,4 +16,137 @@ El tipo del término es [\ket{}, t]: $!bit \multimap !bit \multimap qubit \otime
 Veamos su reducción paso a paso cuando es ejecutado con $b_1 =  b_2 = 1$.
 
 
+\begin{align*}
+    [\ket{}, 
+    & & (\lambda b_1. \lambda b_2. &\\
+	& & 			&\textbf{let } \langle q_1, q_2 \rangle = EPR \star\\
+	& & 			&\textbf{in let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } b_2 \textbf{ then } \langle X q_1, q_2 \rangle \textbf{ else }  \langle q_1, q_2 \rangle \\
+    & &     &                               & & \textbf{ in } \textbf{ if } b_1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & &     & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle) \\
+    & & 1 \; 1 ]
+\end{align*} 
 
+$\rightarrow$
+
+\begin{align*}
+    [\ket{}, 
+    & & (\lambda b_2. &\\
+	& & 			&\textbf{let } \langle q_1, q_2 \rangle = EPR \star\\
+	& & 			&\textbf{in let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } b_2 \textbf{ then } \langle X q_1, q_2 \rangle \textbf{ else }  \langle q_1, q_2 \rangle \\
+    & &     &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & &     & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle) \\
+    & & 1 ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [\ket{}, 
+    &\textbf{let } \langle q_1, q_2 \rangle = EPR \star\\
+	&\textbf{in let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } 1 \textbf{ then } \langle X q_1, q_2 \rangle \textbf{ else }  \langle q_1, q_2 \rangle \\
+    &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle) ]
+\end{align*} 
+
+
+$\rightarrow^*$ la reducción de $EPR \star$ la vimos en clase y en varios pasos lo siguiente, donde $p_1$ es una referencia el qubit de Alice y $p_2$ al de bob:
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})}, 
+    &\textbf{let } \langle q_1, q_2 \rangle = \langle p_1, p_2 \rangle \\
+	&\textbf{in let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } 1 \textbf{ then } \langle X q_1, q_2 \rangle \textbf{ else }  \langle q_1, q_2 \rangle \\
+    &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } 1 \textbf{ then } \langle X p_1, p_2 \rangle \textbf{ else }  \langle p_1, p_2 \rangle \\
+    &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \langle X p_1, p_2 \rangle \\
+    &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{10}+\ket{01})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \langle p_1, p_2 \rangle \\
+    &                               & & \textbf{ in } \textbf{ if } 1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{10}+\ket{01})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (\textbf{ if } 1 \textbf{ then } \langle Z p_1, p_2 \rangle \textbf{ else } \langle p_1, p_2 \rangle ) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(\ket{10}+\ket{01})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (\langle Z p_1, p_2 \rangle) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(-\ket{10}+\ket{01})}, 
+	&\textbf{let } \langle a, b \rangle = CNOT (\langle p_1, p_2 \rangle) \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{\frac{1}{\sqrt{2}}(-\ket{11}+\ket{01})}, 
+	&\textbf{let } \langle a, b \rangle = \langle p_1, p_2 \rangle \\
+    & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle ]
+\end{align*} 
+
+$\rightarrow$ dado que $\ket{\frac{1}{\sqrt{2}}(-\ket{11}+\ket{01})}$ es igual a $\ket{-} \otimes \ket{1}$
+
+\begin{align*}
+    [ \ket{-} \otimes \ket{1}, \langle \mathrm{\text{meas }} (H p_1), \mathrm{\text{meas }} p_2 \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{1} \otimes \ket{1}, \langle \mathrm{\text{meas }} p_1, \mathrm{\text{meas }} p_2 \rangle ]
+\end{align*} 
+
+Dado que el estado es $\ket{11}$, al medir ambos qubits con probabilidad 1 se va a obtener un 1. Por ende no escribimos los caminos que surgirían de que al medir se obtenga un 0.
+
+\begin{align*}
+    [ \ket{1} \otimes \ket{1}, \langle \mathrm{\text{meas }} p_1, \mathrm{\text{meas }} p_2 \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{1} \otimes \ket{1}, \langle 1, \mathrm{\text{meas }} p_2 \rangle ]
+\end{align*} 
+
+$\rightarrow$
+
+\begin{align*}
+    [ \ket{1} \otimes \ket{1}, \langle 1, 1 \rangle ]
+\end{align*} 
