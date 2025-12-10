@@ -1,0 +1,44 @@
+Esto toma dos bits y dos qbits y les hace el ZX
+
+Acá está notado abierto
+
+if b1 then 
+    if b2 then 
+        < Z (X (q1)), q2 >
+    else 
+        < Z (q1), q2 >
+else 
+    if b2 then 
+        < (X (q1)), q2 >
+    else 
+        < q1, q2 >
+
+
+Acá en lambda
+
+Sea M = 
+let <xq1, q2> = if b2 then < (X (q1)), q2 > else  < q1, q2 >
+in if b1 then <Z (xq1), xq2> else <xq1, xq2>
+
+
+Ahora a esos resultados hay que aplicarles CNOT, después H,id y después meas, meas
+
+let <a,b> = CNOT (M)
+in <meas (H a), meas b>
+
+
+
+----------------------------------------------
+
+let <a, b> = CNOT ( let <xq1, q2> = if b2 then < (X (q1)), q2 > else  < q1, q2 >
+                    in if b1 then <Z (xq1), xq2> else <xq1, xq2> )
+in <meas (H a), meas b>
+
+----------------------------------------------
+
+\lambda q1. \lambda q2. &\\
+\lambda b1. \lambda b2. &\\
+
+    & let <a, b> = CNOT ( & let <xq1, q2> = if b2 then < (X (q1)), q2 > else  < q1, q2 > \\
+    &                     & in if b1 then <Z (xq1), xq2> else <xq1, xq2> ) \\
+    & in <meas (H a), meas b>
