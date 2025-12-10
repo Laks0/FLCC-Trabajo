@@ -2,16 +2,18 @@
 
 El término que implementa el algoritmo en el lambda cuántico a control clásico es el siguiente:
 
-$EPR =\lambda x. CNOT \langle H (\text{new } 0), \text{new } 0 \rangle$
-
 \begin{align*}
     (\lambda b_1. \lambda b_2. &\\
 				&\textbf{let } \langle q_1, q_2 \rangle = EPR \star\\
 				&\textbf{in let } \langle a, b \rangle = CNOT (& & \textbf{ let } \langle x_1, x_2 \rangle = \textbf{ if } b_2 \textbf{ then } \langle X q_1, q_2 \rangle \textbf{ else }  \langle q_1, q_2 \rangle \\
         &                               & & \textbf{ in } \textbf{ if } b_1 \textbf{ then } \langle Z x_1, x_2 \rangle \textbf{ else } \langle x_1, x_2 \rangle ) \\
-        & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle) \\
+        & \textbf{in } \langle \mathrm{\text{meas }} (H a), \mathrm{\text{meas }} b \rangle)
 \end{align*}
+donde $EPR =\lambda x. CNOT \langle H (\text{new } 0), \text{new } 0 \rangle$
 
-[\ket{\psi}, t]: $!bit \multimap !bit \multimap qubit \otimes qubit$
+El tipo del término es [\ket{}, t]: $!bit \multimap !bit \multimap qubit \otimes qubit$
+
+Veamos su reducción paso a paso cuando es ejecutado con $b_1 =  b_2 = 1$.
+
 
 
