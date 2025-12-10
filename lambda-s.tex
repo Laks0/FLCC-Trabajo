@@ -4,9 +4,9 @@ $X = \lambda x : \mathbb{B}. x? \ket{0} \cdot \ket{1}$
 
 $Z = \lambda x : \mathbb{B}. x? -\ket{1} \cdot \ket{0}$
 
-$X^{b_2} = \lambda b_2 : \mathbb{B}. \lambda q:\mathbb{B}. b_2 ? Xq \cdot q$
+$X^{b_2} = (\lambda b_2 : \mathbb{B}. \lambda q:\mathbb{B}. b_2 ? Xq \cdot q) b_2$
 
-$Z^{b_1} = \lambda b_1 : \mathbb{B}. \lambda q:\mathbb{B}. b_1 ? Zq \cdot q$
+$Z^{b_1} = (\lambda b_1 : \mathbb{B}. \lambda q:\mathbb{B}. b_1 ? Zq \cdot q) b_1$
 
 CNOT $ = \lambda q : \mathbb{B}^2. (\text{\text{head } } q)? (\text{head } q \times X \text{tail } q) \cdot q$
 
@@ -18,15 +18,50 @@ HI $ = \lambda q : (H \text{ head } q) \times \text{tail } q$
 	) \hr . (\ket{00} + \ket{11})
 \end{align*}
 
-
 Derivación para $b_1 = \ket{1}, b_2 = \ket{1}$.
 
 \[
-	(\lambda q : \mathcal{S}\mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \pi_2 \text{ HI CNOT } ((X^{b_2} b_2 (Z^{b_1} b_1 \text{ head } q)) \times (\text{tail } q))) \hr . (\ket{00} + \ket{11}) \ket{1} \ket{0}
+	(\lambda q : \mathcal{S}\mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } q)) \times (\text{tail } q))) \hr . (\ket{00} + \ket{11}) \ket{1} \ket{1}
 \]
-\[
-	\xrightarrow{\beta_n} (\lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \pi_2 \text{ HI CNOT } ((X^{b_2} b_2 (Z^{b_1} b_1 \text{ head } \hr . (\ket{00} + \ket{11}))) \times (\text{tail } \hr . (\ket{00} + \ket{11}))))
-\]
-\[
-	\xrightarrow{\beta_b}^2 \pi_2 \text{ HI CNOT } ((X^{b_2} b_2 (Z^{\ket{1}g} b_1 \text{ head } \hr . (\ket{00} + \ket{11}))) \times (\text{tail } \hr . (\ket{00} + \ket{11})))
-\]
+
+\[(\lambda q : \mathcal{S}\mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } q)) \times (\text{tail } q))) \hr . (\ket{00} + \ket{11}) \ket{1} \ket{1}\]
+
+\[\xrightarrow{} F (\hr . (\ket{00} + \ket{11})) \ket{1} \ket{1} \]
+\[\xrightarrow{} (\hr . (F\ket{00} + F\ket{11})) \ket{1} \ket{1} \]
+\[\xrightarrow{} \hr . (F\ket{00}\ket{1} \ket{1} + F\ket{11}\ket{1} \ket{1}) \]
+
+Analizamos primero $F\ket{00}\ket{1} \ket{1}$
+
+\[(\lambda q : \mathcal{S}\mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } q)) \times (\text{tail } q))) \ket{00} \ket{1} \ket{1}\]
+\[(\lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } \ket{00})) \times (\text{tail } \ket{00}))) \ket{1} \ket{1}\]
+\[( \text{ HI CNOT } (((Z^{\ket{1}} X^{\ket{1}} \text{ head } \ket{00})) \times (\text{tail } \ket{00})))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} X^{\ket{1}} \ket{0})) \times \ket{0}))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} X \ket{0})) \times \ket{0}))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} \ket{1})) \times \ket{0}))\]
+\[(\text{ HI CNOT } (((Z \ket{1})) \times \ket{0}))\]
+\[(\text{ HI CNOT } (-\ket{10}))\]
+\[(\text{ HI} (-\ket{11}))\]
+\[(-\ket{-1})\]
+
+Analizamos ahora $F\ket{11}\ket{1} \ket{1}$
+
+\[(\lambda q : \mathcal{S}\mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } q)) \times (\text{tail } q))) \ket{11} \ket{1} \ket{1}\]
+\[(\lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}. \text{ HI CNOT } (((Z^{b_1} X^{b_2} \text{ head } \ket{11})) \times (\text{tail } \ket{11}))) \ket{1} \ket{1}\]
+\[( \text{ HI CNOT } (((Z^{\ket{1}} X^{\ket{1}} \text{ head } \ket{11})) \times (\text{tail } \ket{11})))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} X^{\ket{1}} \ket{1})) \times \ket{1}))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} X \ket{1})) \times \ket{1}))\]
+\[(\text{ HI CNOT } (((Z^{\ket{1}} \ket{0})) \times \ket{1}))\]
+\[(\text{ HI CNOT } (((Z \ket{0})) \times \ket{1}))\]
+\[(\text{ HI CNOT } (\ket{01}))\]
+\[\text{ HI} (\ket{01})\]
+\[\ket{+1}\]
+
+Volviendo tenemos:
+\[\xrightarrow{} \hr . (F\ket{00}\ket{1} \ket{1} + F\ket{11}\ket{1} \ket{1})\]
+\[\xrightarrow{} \hr . (-\ket{-1} + \ket{+1})\]
+\[\xrightarrow{} \hr . [-(\hr(\ket{0} - \ket{1})) \times \ket{1} + (\hr(\ket{0} + \ket{1})) \times \ket{1}]\]
+\[\xrightarrow{} \frac{1}{2}(-(\ket{0} - \ket{1}) \times \ket{1} + (\ket{0} + \ket{1}) \times \ket{1})\]
+\[\xrightarrow{} \frac{1}{2}(-\ket{01} + \ket{11} + \ket{01} + \ket{11})\]
+\[\xrightarrow{} \frac{1}{2}(2 . \ket{11})\]
+\[\xrightarrow{} \ket{11}\]
+
