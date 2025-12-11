@@ -1,0 +1,53 @@
+\subsection*{Cálculo $\mathcal{L}^\mathbb{C}$}
+
+Usamos la construcción de matrices dada en el paper para $\mathbb{C}^{2\times 2}$ de la forma:
+
+$$
+\left(
+\begin{matrix}
+	a & b \\
+	c & d
+\end{matrix}
+\right)
+= \lambda x. (\delta_\odot^1(x, y.\delta_\top(y, [a.\star, b.\star]) + \delta_\odot^2(x, z.\delta_\top(z,[c.\star,d.\star]))))$$
+
+Que asumimos como correcta y usamos para describir:
+
+$$
+H = \left(
+	\begin{matrix}
+	\hr & \hr \\
+	\hr & -\hr
+\end{matrix}
+\right) ;
+X = \left(
+	\begin{matrix}
+	0 & 1 \\
+	1 & 0
+\end{matrix}
+\right) ;
+Z = \left(
+	\begin{matrix}
+	1 & 0 \\
+	0 & -1
+\end{matrix}
+\right)
+$$
+
+Y usamos esas construcciones para definir:
+
+\[
+	Z^{b_1} = \lambda b_1. \lambda x. \delta_\vee(b_1, x, Z\ x)
+;
+	X^{b_2} = \lambda b_2. \lambda x. \delta_\vee(b_2, x, X\ x)
+\]
+\[
+	H_1 = \lambda x. [\delta_\odot^1(x, y. H\ y), \delta_\odot^2(x, z.z)]
+\]
+
+Usando la representación de que un bit es de tipo $\top \vee \top$ y $\mathbf{0} = inl(1.\star); \mathbf{1} = inr(1.\star)$.
+
+\begin{align*}
+	& \lambda b_1. \lambda b_2 \\
+	& \hr\cdot(\overline{\ket{00}}+\overline{\ket{11}})
+\end{align*}
