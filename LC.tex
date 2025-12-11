@@ -32,6 +32,12 @@ Z = \left(
 	0 & -1
 \end{matrix}
 \right) ;
+I = \left(
+	\begin{matrix}
+	1 & 0 \\
+	0 & 1
+\end{matrix}
+\right) ;
 \emptyset = \left(
 	\begin{matrix}
 	0 & 0 \\
@@ -53,7 +59,24 @@ Y usamos esas construcciones para definir:
 
 Usando la representación de que un bit es de tipo $\top \vee \top$ y $\mathbf{0} = inl(1.\star); \mathbf{1} = inr(1.\star)$.
 
+Usando la construcción recursiva del paper también podemos construir:
+\[
+	\text{CNOT } = \left(\begin{matrix}
+			I & \emptyset \\
+			\emptyset & X
+	\end{matrix}\right)
+\]
+
+$$\overline{\ket{00}} = [[1.\star, 0.\star], [0.\star, 0.\star]]
+;
+\overline{\ket{11}} = [[0.\star, 0.\star], [0.\star, 1.\star]]$$
+
+\[
+	\pi = \lambda q. \langle\delta_\odot^1(q, x.\delta_\odot(x, y.\mathbf{0}, z.\mathbf{1})), \delta_\odot^2(q, x.\delta_\odot(x, y.\mathbf{0}, z.\mathbf{1}) \rangle
+\]
+
 \begin{align*}
-	& \lambda b_1. \lambda b_2 \\
-	& \hr\cdot(\overline{\ket{00}}+\overline{\ket{11}})
+	& (\lambda q. \lambda b_1. \lambda b_2 \\
+		& & \pi\ (H\otimes I)\text{ CNOT } (X^{b_2}\ b_2\ (Z^{b_1}\ b_1\ q) )\\
+	& )\hr\cdot(\overline{\ket{00}}+\overline{\ket{11}})
 \end{align*}
