@@ -1,5 +1,7 @@
 \subsection*{Lambda-$\mathcal{S}$}
 
+Definimos los términos auxiliares:
+
 $X = \lambda x : \mathbb{B}. x? \ket{0} \cdot \ket{1}$
 
 $Z = \lambda x : \mathbb{B}. x? -\ket{1} \cdot \ket{0}$
@@ -12,6 +14,9 @@ CNOT $ = \lambda q : \mathbb{B}^2. (\text{head } q)? (\text{head } q \times X (\
 
 HI $ = \lambda q : (H \text{ head } q) \times \text{tail } q$
 
+\vspace{2mm}
+
+Y el término para el algoritmo:
 \begin{align*}
 	(\lambda q : \mathbb{B}^2. \lambda b_1 : \mathbb{B}. \lambda b_2 : \mathbb{B}.\\
 	& \pi_2 (\text{HI } (\text{CNOT } ((Z^{b_1} (X^{b_2} \text{ head } q)) \times (\text{tail } q))))\\
