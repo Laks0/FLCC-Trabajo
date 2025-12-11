@@ -1,5 +1,172 @@
 \subsection*{Cálculo $\mathcal{L}^\mathbb{C}$}
 
+
+
+% Thus, we have the multiplicative truth $\mathbf{1}$, the multiplicative implication $\multimap$, the multiplicative conjunction $\otimes$, 
+% the additive truth $\top$, the additive falsehood $\mathbf{0}$, the additive conjunction~\&{}, and the additive disjunction~\oplus.
+
+
+% ===============================
+% Reduction Rules (LaTeX-ready)
+% ===============================
+
+% --- 1. Unit elimination ---
+\[
+\delta_{1}(a\cdot \star , t) \;\longrightarrow\; a \bullet t
+\]
+
+% --- 2. Beta reduction ---
+\[
+(\lambda x.\, t)\, u \;\longrightarrow\; (u/x)\, t
+\]
+
+% --- 3. Tensor elimination ---
+\[
+\delta_{\otimes}(u \otimes v,\; xy.\, w) 
+\;\longrightarrow\; (u/x,\; v/y)\, w
+\]
+
+% --- 4. With-elimination (left) ---
+\[
+\delta_{1\&}(\langle t, u\rangle,\; x.\, v) 
+\;\longrightarrow\; (t/x)\, v
+\]
+
+% --- 5. With-elimination (right) ---
+\[
+\delta_{2\&}(\langle t, u\rangle,\; x.\, v) 
+\;\longrightarrow\; (u/x)\, v
+\]
+
+% --- 6. Sum-elimination (inl) ---
+\[
+\delta_{\oplus}(\mathrm{inl}(t),\; x.\, v,\; y.\, w) 
+\;\longrightarrow\; (t/x)\, v
+\]
+
+% --- 7. Sum-elimination (inr) ---
+\[
+\delta_{\oplus}(\mathrm{inr}(u),\; x.\, v,\; y.\, w) 
+\;\longrightarrow\; (u/y)\, w
+\]
+
+% --- 8. Additivity: unit ---
+\[
+a\cdot\star \;+\; b\cdot\star 
+\;\longrightarrow\; (a+b)\cdot\star
+\]
+
+% --- 9. Additivity: lambda ---
+\[
+(\lambda x.\, t) + (\lambda x.\, u) 
+\;\longrightarrow\; \lambda x.\, (t+u)
+\]
+
+% --- 10. Additivity: tensor delta ---
+\[
+\delta_{\otimes}(t+u,\; xy.\, v) 
+\;\longrightarrow\; 
+\delta_{\otimes}(t,\; xy.\, v) + \delta_{\otimes}(u,\; xy.\, v)
+\]
+
+% --- 11. Additivity: unit pair ---
+\[
+\langle\,\rangle + \langle\,\rangle 
+\;\longrightarrow\; \langle\,\rangle
+\]
+
+% --- 12. Additivity: pair ---
+\[
+\langle t, u\rangle + \langle v, w\rangle
+\;\longrightarrow\; \langle t+v,\; u+w\rangle
+\]
+
+% --- 13. Additivity: sum delta ---
+\[
+\delta_{\oplus}(t+u,\; x.\, v,\; y.\, w)
+\;\longrightarrow\; 
+\delta_{\oplus}(t,\; x.\, v,\; y.\, w)
+\;+\;
+\delta_{\oplus}(u,\; x.\, v,\; y.\, w)
+\]
+
+% --- 14. Scalar product: unit ---
+\[
+a \bullet (b\cdot\star) 
+\;\longrightarrow\; (a\times b)\cdot\star
+\]
+
+% --- 15. Scalar product: lambda ---
+\[
+a \bullet (\lambda x.\, t) 
+\;\longrightarrow\; \lambda x.\, (a\bullet t)
+\]
+
+% --- 16. Scalar product: tensor delta ---
+\[
+\delta_{\otimes}(a\bullet t,\; xy.\, v)
+\;\longrightarrow\; 
+a\bullet \delta_{\otimes}(t,\; xy.\, v)
+\]
+
+% --- 17. Scalar product: empty pair ---
+\[
+a\bullet \langle\,\rangle \;\longrightarrow\; \langle\,\rangle
+\]
+
+% --- 18. Scalar product: pair ---
+\[
+a\bullet \langle t, u\rangle 
+\;\longrightarrow\; 
+\langle a\bullet t,\; a\bullet u\rangle
+\]
+
+% --- 19. Scalar product: sum delta ---
+\[
+\delta_{\oplus}(a\bullet t,\; x.\, v,\; y.\, w)
+\;\longrightarrow\; 
+a\bullet \delta_{\oplus}(t,\; x.\, v,\; y.\, w)
+\]
+
+% --- 20. Sum-elimination (first) for ⊙ ---
+\[
+\delta_{1\odot}([t,u],\; x.\, v)
+\;\longrightarrow\; (t/x)\, v
+\]
+
+% --- 21. Sum-elimination (second) for ⊙ ---
+\[
+\delta_{2\odot}([t,u],\; x.\, v)
+\;\longrightarrow\; (u/x)\, v
+\]
+
+% --- 22. Sum-elimination (inl-style) for ⊙ ---
+\[
+\delta_{\odot}([t,u],\; x.\, v,\; y.\, w)
+\;\longrightarrow\; (t/x)\, v
+\]
+
+% --- 23. Sum-elimination (inr-style) for ⊙ ---
+\[
+\delta_{\odot}([t,u],\; x.\, v,\; y.\, w)
+\;\longrightarrow\; (u/y)\, w
+\]
+
+% --- 24. Additivity: list ---
+\[
+[t,u] + [v,w]
+\;\longrightarrow\; [t+v,\; u+w]
+\]
+
+% --- 25. Scalar product: list ---
+\[
+a \bullet [t,u]
+\;\longrightarrow\; [a\bullet t,\; a\bullet u]
+\]
+
+
+
+
 Usamos la construcción de matrices dada en el paper para $\mathbb{C}^{2\times 2}$ de la forma:
 
 $$
@@ -49,9 +216,11 @@ $$
 Y usamos esas construcciones para definir:
 
 \[
-	Z^{b_1} = \lambda b_1. \lambda x. \delta_\vee(b_1, x, Z\ x)
-;
-	X^{b_2} = \lambda b_2. \lambda x. \delta_\vee(b_2, x, X\ x)
+	Z^{b_1} = \lambda b_1. (\lambda x. \delta_\vee(b_1, x, Z\ x)) b_1
+\]
+
+\[
+	X^{b_2} = \lambda b_2. (\lambda x. \delta_\vee(b_2, x, X\ x)) b_2
 \]
 \[
 	H\otimes I = \lambda x. [\delta_\odot^1(x, y. H\ y), \delta_\odot^2(x, z.z)]
@@ -75,8 +244,54 @@ $$\overline{\ket{00}} = [[1.\star, 0.\star], [0.\star, 0.\star]]
 	\pi = \lambda q. \langle\delta_\odot^1(q, x.\delta_\odot(x, y.\mathbf{0}, z.\mathbf{1})), \delta_\odot^2(q, x.\delta_\odot(x, y.\mathbf{0}, z.\mathbf{1}) \rangle
 \]
 
+\[
+(\lambda q.\ \lambda b_{1}.\ \lambda b_{2}.\ \pi (H \otimes I)\,\text{CNOT}\!\left(Z^{b_{1}}\!\left(X^{b_{2}}\, q\right)\right))
+\ \hr\!\cdot(\overline{\ket{00}}+\overline{\ket{11}})
+\]
+
+
+
+---------------------------------------------
+\newpage
+
+Derivación para $b_1 = \text{inr}(1.\star), b_2 = \text{inr}(1.\star)$.
+\[
+    (\lambda q. \lambda b_1. \lambda b_2. \pi (H\otimes I) \text{CNOT} (Z^{b_1} (X^{b_2} q))) \Psi \ \text{inr}(1.\star) \ \text{inr}(1.\star)
+\]
+%
 \begin{align*}
-	& (\lambda q. \lambda b_1. \lambda b_2 \\
-		& & \pi\ (H\otimes I)\text{ CNOT } (X^{b_2}\ b_2\ (Z^{b_1}\ b_1\ q) )\\
-	& )\hr\cdot(\overline{\ket{00}}+\overline{\ket{11}})
+&\longrightarrow_{}
+\pi (H\otimes I)\,\text{CNOT}\bigl((Z^{\text{inr}(1.\star)}\otimes I)((X^{\text{inr}(1.\star)}\otimes I)\Psi)\bigr)\\
+&\longrightarrow_{}
+\pi (H\otimes I)\,\text{CNOT}\bigl((Z\otimes I)((X\otimes I)\Psi)\bigr)\\
+&\longrightarrow_{}
+\pi (H\otimes I)\,\text{CNOT}\!\left((Z\otimes I)\!\left((X\otimes I)\!\left(\hr(\overline{\ket{00}}+\overline{\ket{11}})\right)\right)\right)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\,\text{CNOT}\bigl((Z\otimes I)((X\otimes I)\overline{\ket{00}}+(X\otimes I)\overline{\ket{11}})\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\,\text{CNOT}\bigl((Z\otimes I)(\overline{\ket{10}}+\overline{\ket{01}})\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\,\text{CNOT}\bigl((Z\otimes I)\overline{\ket{10}}+(Z\otimes I)\overline{\ket{01}}\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\,\text{CNOT}\bigl(-\overline{\ket{10}}+\overline{\ket{01}}\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\bigl(-\text{CNOT}\,\overline{\ket{10}}+\text{CNOT}\,\overline{\ket{01}}\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi (H\otimes I)\bigl(-\overline{\ket{11}}+\overline{\ket{01}}\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi\bigl(-(H\otimes I)\overline{\ket{11}}+(H\otimes I)\overline{\ket{01}}\bigr)\\
+&\longrightarrow_{}
+\hr\,\pi\!\left(
+-\hr(\overline{\ket{01}}-\overline{\ket{11}})
++\hr(\overline{\ket{01}}+\overline{\ket{11}})
+\right)\\
+&\longrightarrow_{}
+(\hr\cdot\hr)\,\pi\bigl(-\overline{\ket{01}}+\overline{\ket{11}}
++\overline{\ket{01}}+\overline{\ket{11}}\bigr)\\
+&\longrightarrow_{}
+\frac12\,\pi(2\,\overline{\ket{11}})\\
+&\longrightarrow_{}
+\pi(\overline{\ket{11}})\\
+&\longrightarrow_{}
+\langle \mathbf{1},\mathbf{1}\rangle
 \end{align*}
