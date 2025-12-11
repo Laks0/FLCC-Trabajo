@@ -31,6 +31,12 @@ Z = \left(
 	1 & 0 \\
 	0 & -1
 \end{matrix}
+\right) ;
+\emptyset = \left(
+	\begin{matrix}
+	0 & 0 \\
+	0 & 0
+\end{matrix}
 \right)
 $$
 
@@ -42,7 +48,7 @@ Y usamos esas construcciones para definir:
 	X^{b_2} = \lambda b_2. \lambda x. \delta_\vee(b_2, x, X\ x)
 \]
 \[
-	H_1 = \lambda x. [\delta_\odot^1(x, y. H\ y), \delta_\odot^2(x, z.z)]
+	H\otimes I = \lambda x. [\delta_\odot^1(x, y. H\ y), \delta_\odot^2(x, z.z)]
 \]
 
 Usando la representación de que un bit es de tipo $\top \vee \top$ y $\mathbf{0} = inl(1.\star); \mathbf{1} = inr(1.\star)$.
