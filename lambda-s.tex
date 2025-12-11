@@ -76,9 +76,17 @@ Analizamos ahora $F\ket{11}\ket{1} \ket{1}$
 	&\xrightarrow{}\ket{+1}
 \end{align*}
 
+\def\hrr{\frac{-1}{\sqrt{2}}}
+
+
 Volviendo tenemos:
 \[\xrightarrow{} \hr . (F\ket{00}\ket{1} \ket{1} + F\ket{11}\ket{1} \ket{1})\]
-\[\xrightarrow{} \hr . (\pi_2(-\ket{-1}) + \pi_2(\ket{+1}))\]
+\[\xrightarrow{} \hr . (\pi_2(\Uparrow_r -\ket{-1}) + \pi_2(\Uparrow_r \ket{+1}))\]
+\[\xrightarrow{} \hr . (\pi_2(- (\Uparrow_r (\ket{-} \times \ket{1}))) + \pi_2(\Uparrow_r (\ket{+} \times \ket{1})))\]
+\[\xrightarrow{} \hr . (\pi_2(- (\Uparrow_r (\hr . (\ket{0} - \ket{1}) \times \ket{1}))) + \pi_2(\Uparrow_r ((\hr . (\ket{0} + \ket{1})) \times \ket{1})))\]
+\[\xrightarrow{} \hr . (\pi_2(- \hr . (\Uparrow_r ((\ket{0} - \ket{1}) \times \ket{1}))) + \pi_2(\hr . \Uparrow_r (((\ket{0} + \ket{1})) \times \ket{1})))\]
+\[\xrightarrow{} \hr . (\pi_2(- \hr . (\Uparrow_r \ket{01} - \Uparrow_r \ket{11})) + \pi_2(\hr . (\Uparrow_r \ket{01} + \Uparrow_r \ket{11})))\]
+\[\xrightarrow{} \hr . (\pi_2(\hrr . (\ket{01} - \ket{11})) + \pi_2(\hr . (\ket{01} + \ket{11})))\]
 \[\xrightarrow{} \hr . (-\ket{-1} + \ket{+1})\]
 \[\xrightarrow{} \hr . [-(\hr(\ket{0} - \ket{1})) \times \ket{1} + (\hr(\ket{0} + \ket{1})) \times \ket{1}]\]
 \[\xrightarrow{} \frac{1}{2}(-(\ket{0} - \ket{1}) \times \ket{1} + (\ket{0} + \ket{1}) \times \ket{1})\]
